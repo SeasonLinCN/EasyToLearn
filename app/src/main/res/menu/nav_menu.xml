@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_work"
+            android:icon="@drawable/nav_get"
+            android:title="查看作业" />
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/nav_message"
+            android:title="家校互动" />
+        <item
+            android:id="@+id/nav_center"
+            android:icon="@drawable/nav_center"
+            android:title="个人中心" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/nav_setting"
+            android:title="系统设置" />
+    </group>
+</menu>
