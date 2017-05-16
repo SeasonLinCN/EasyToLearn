@@ -24,13 +24,9 @@ import okhttp3.Response;
  */
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-
     private Context mContext;
-
     private List<Work> mWorkList;
-
     private Work work;
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView workImage;

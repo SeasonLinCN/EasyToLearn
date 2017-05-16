@@ -32,15 +32,12 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    private Context mContext;
     long id;
     String email;
     String name;
     String mobile;
     String number;
     String password;
-
-
 
     private SharedPreferences pref;
     private CheckBox rememberPass;
@@ -51,52 +48,22 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.btn_login) Button _loginButton;
     @Bind(R.id.link_signup) TextView _signupLink;
 
-
-
-    static Context loginContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginContext = this;
-
         ButterKnife.bind(this);
 
         String oldPassword;
         Intent intent = getIntent();
         oldPassword = intent.getStringExtra("password");
         String phone = intent.getStringExtra("phone");
-        Log.d("test",oldPassword+"  zz");
         if(oldPassword != null){
-            Log.d("test",oldPassword+"  00");
             _passwordText.setText(oldPassword);
             _mobileText.setText(phone);
         }
 
-        Log.d("test","2");
         Connector.getDatabase();
-
-//        new android.os.Handler().postDelayed(
-//                new Runnable() {
-//                    public void run() {
-//                        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//                        rememberPass = (CheckBox) findViewById(R.id.remember_pass);
-//                        if(TextUtils.isEmpty(_mobileText.getText())){
-//                            boolean isRemember = pref.getBoolean("remember_password", false);
-//                            if (isRemember) {
-//                                // 将账号和密码都设置到文本框中
-//                                mobile = pref.getString("mobile", "");
-//                                String password = pref.getString("password", "");
-//                                _mobileText.setText(mobile);
-//                                _passwordText.setText(password);
-//                                rememberPass.setChecked(true);
-//                                Log.d("test",mobile+"  5");
-//                            }
-//                        }
-//                        Log.d("test",mobile+"  4");
-//                        Log.d("test",_mobileText.getText().toString()+"  3");
-//                    }
-//                }, 10);
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         rememberPass = (CheckBox) findViewById(R.id.remember_pass);
@@ -112,19 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                 rememberPass.setChecked(true);
             }
         }
-
-
-//        boolean isRemember = pref.getBoolean("remember_password", false);
-//        if (isRemember) {
-//            // 将账号和密码都设置到文本框中
-//            mobile = pref.getString("mobile", "");
-//            String password = pref.getString("password", "");
-//            _mobileText.setText(mobile);
-//            _passwordText.setText(password);
-//            rememberPass.setChecked(true);
-//        }
-
-        Log.d("test",_mobileText.getText().toString());
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -227,8 +181,6 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(MainActivity.NAME, name);
         intent.putExtra(MainActivity.NUMBER, number);
         intent.putExtra(MainActivity.MOBILE, mobile);
-        Log.d("LoginMobile",mobile+"  +mobile");
-        Log.d("LoginId",id+"   id");
         startActivity(intent);
         finish();
     }
@@ -257,14 +209,8 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 _mobileText.setError("enter a valid mobile ");
             }
-
         }
-
         return valid;
-    }
-
-    public static Context getmContext(){
-        return loginContext;
     }
 }
 

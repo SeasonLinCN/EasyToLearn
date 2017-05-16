@@ -30,19 +30,23 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
         Intent intent = getIntent();
         messageName = intent.getStringExtra(MESSAGE_NAME);
         String messageImageId = intent.getStringExtra(MESSAGE_IMAGE_ID);
         String messageContent = intent.getStringExtra(MESSAGE_CONTENT);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         ImageView messageImageView = (ImageView) findViewById(R.id.message_image_view);
         TextView messageContentText = (TextView) findViewById(R.id.message_content_text);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
         collapsingToolbar.setTitle(messageName);
         Glide.with(this).load(messageImageId).into(messageImageView);
         //Glide.with(this).load("http://192.168.123.76/" + messageImageId).into(messageImageView);

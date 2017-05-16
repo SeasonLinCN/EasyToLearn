@@ -48,9 +48,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
-        <activity android:name="com.example.season.easytolearn.RegisterActivity">
-        </activity>
-
         <activity
             android:name="com.example.season.easytolearn.WorkActivity"
             android:theme="@style/WorkActivityTheme">
@@ -67,6 +64,13 @@
 
         <activity
             android:name=".CenterActivity">
+        </activity>
+
+        <activity
+            android:name=".Settings.ReportActivity">
+        </activity>
+        <activity
+            android:name=".Settings.ChangePasswordActivity">
         </activity>
 
         <provider

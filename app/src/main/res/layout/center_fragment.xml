@@ -146,11 +146,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp">
-                        <EditText android:id="@+id/collage"
+                        <EditText android:id="@+id/school"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            android:hint="Collage" />
+                            android:hint="School" />
                     </android.support.design.widget.TextInputLayout>
                 </android.support.v7.widget.CardView>
 

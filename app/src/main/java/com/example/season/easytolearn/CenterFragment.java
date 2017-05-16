@@ -63,6 +63,9 @@ public class CenterFragment extends Fragment {
     EditText editTextEmail;
     EditText editTextNumber;
     EditText editTextMobile;
+    EditText editTextUniversity;
+    EditText editTextSchool;
+    EditText editTextMajorClass;
     ImageView imageView;
     Long id;
 
@@ -85,9 +88,12 @@ public class CenterFragment extends Fragment {
         String number = users.getNumber();
         String mobile = users.getMobile();
         String icon = users.getIcon();
-        Log.d("test","2  "+users.getIcon());
-        Log.d("test","3  "+icon);
-        Log.d("test","4  "+users.getId());
+        String university = users.getUniversity();
+        String school = users.getSchool();
+        String majorClass = users.getMajorClass();
+
+
+
 
         TextView textViewName = (TextView) view.findViewById(R.id.input_name);
         textViewName.setText(name);
@@ -97,6 +103,14 @@ public class CenterFragment extends Fragment {
         editTextNumber.setText(number);
         editTextMobile = (EditText) view.findViewById(R.id.input_phone);
         editTextMobile.setText(mobile);
+        editTextUniversity = (EditText)view.findViewById(R.id.university);
+        editTextUniversity.setText(university);
+        editTextSchool = (EditText)view.findViewById(R.id.school);
+        editTextSchool.setText(school);
+        editTextMajorClass = (EditText)view.findViewById(R.id.majorClass);
+        editTextMajorClass.setText(majorClass);
+
+
 
         imageView = (ImageView) view.findViewById(R.id.center_image_view);
         if (icon!=null){
@@ -112,7 +126,7 @@ public class CenterFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        picture = (ImageView) getView().findViewById(R.id.center_image_view);
+        picture = (ImageView) getActivity().findViewById(R.id.center_image_view);
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,6 +146,9 @@ public class CenterFragment extends Fragment {
                 User user = new User();
                 user.setEmail(editTextEmail.getText().toString());
                 user.setMobile(editTextMobile.getText().toString());
+                user.setUniversity(editTextUniversity.getText().toString());
+                user.setSchool(editTextSchool.getText().toString());
+                user.setMajorClass(editTextMajorClass.getText().toString());
                 user.setIcon(imagePath);
 
                 user.update(id);

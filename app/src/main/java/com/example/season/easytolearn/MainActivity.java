@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.season.easytolearn.Settings.SettingsFragment;
 
 import org.litepal.LitePalApplication;
 import org.litepal.crud.DataSupport;
@@ -44,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
         User user = DataSupport.find(User.class,id);
         String name = user.getName();
         String number = user.getNumber();
-        //String name = user.getName();
-        Log.d("MainNumber",number);
-        Log.d("MainName",name);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                                 mDrawerLayout.closeDrawers();
                                 break;
                             case R.id.nav_setting:
-
+                                replaceFragment(new SettingsFragment());
                                 mDrawerLayout.closeDrawers();
 
                         }

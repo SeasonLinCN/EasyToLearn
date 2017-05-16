@@ -20,8 +20,36 @@ public class User extends DataSupport{
     private String email;
     private String mobile;
     private String password;
-
     private String icon;
+    private String university;
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setMajorClass(String majorClass) {
+        this.majorClass = majorClass;
+    }
+
+    public String getUniversity() {
+
+        return university;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public String getMajorClass() {
+        return majorClass;
+    }
+
+    private String school;
+    private String majorClass;
 
     public void setIcon(String icon) {
         this.icon = icon;

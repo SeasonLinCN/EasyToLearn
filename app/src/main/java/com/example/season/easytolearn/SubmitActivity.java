@@ -60,7 +60,6 @@ public class SubmitActivity extends AppCompatActivity  {
 
     public static final String SUBMIT_WORK_NAME = "work_name";
     public String submitWorkName = "work_name";
-
     private SubmitButton sBtnLoading;
     private EditText editText;
 
@@ -88,7 +87,6 @@ public class SubmitActivity extends AppCompatActivity  {
         }
 
         sBtnLoading = (SubmitButton) findViewById(R.id.sbtn_loading);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -96,12 +94,10 @@ public class SubmitActivity extends AppCompatActivity  {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-
         images = bindView(R.id.images);
         gridView = bindView(R.id.gridView);
 
         imagesList = new ArrayList<>();
-
         imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
         imagePicker.setShowCamera(true);  //显示拍照按钮

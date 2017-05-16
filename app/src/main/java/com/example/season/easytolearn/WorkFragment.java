@@ -38,7 +38,6 @@ public class WorkFragment extends Fragment {
     private SwipeRefreshLayout swipeRefresh;
     private RecyclerView recyclerView;
     private String responseData;
-    private Work work;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class WorkFragment extends Fragment {
                         swipeRefresh.setRefreshing(false);
                     }
                 }, 2000);
-
             }
         });
     }
@@ -68,24 +66,20 @@ public class WorkFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.work_fragment, container, false);
 
-        Log.d("MainActivity", "A");
         sendRequestWithOkHttp();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(layoutManager);
-
         Toast.makeText(getContext(),"Getting Work！！",Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 //do something
-
                 adapter = new WorkAdapter(workList);
                 recyclerView.setAdapter(adapter);
             }
         }, 1000);    //延时1s执行
-            Log.d("MainActivity", "Display");
             return view;
     }
 

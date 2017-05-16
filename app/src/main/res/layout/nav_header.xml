@@ -10,7 +10,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/nav_icon" />
+        android:src="@drawable/nav_logo" />
 
     <TextView
         android:id="@+id/username"
