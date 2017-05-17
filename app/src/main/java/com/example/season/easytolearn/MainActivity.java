@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         tv_nav_number.setText(number);
 
         CircleImageView cim_nav_icon_image = (CircleImageView) headerView.findViewById(R.id.icon_image);
-        Glide.with(this).load(R.drawable.nav_icon).into(cim_nav_icon_image);
+        Glide.with(this).load(R.drawable.nav_logo).into(cim_nav_icon_image);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
