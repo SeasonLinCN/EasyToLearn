@@ -63,10 +63,6 @@
         </activity>
 
         <activity
-            android:name=".CenterActivity">
-        </activity>
-
-        <activity
             android:name=".Settings.ReportActivity">
         </activity>
         <activity
