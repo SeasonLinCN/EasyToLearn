@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -44,6 +46,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+import cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import cafe.adriel.androidaudiorecorder.model.AudioSource;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -69,6 +75,10 @@ public class SubmitActivity extends AppCompatActivity  {
     ArrayList<ImageItem> imagesList;
 
     String inputText = null;
+
+    private static final int REQUEST_RECORD_AUDIO = 0;
+    private static final String AUDIO_FILE_PATH =
+            Environment.getExternalStorageDirectory().getPath() + "/recorded_audio.wav";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +137,7 @@ public class SubmitActivity extends AppCompatActivity  {
                 Toast.makeText(SubmitActivity.this, "正在上传", Toast.LENGTH_SHORT).show();
                 uploadImages();
                 uploadFiles();
+                uploadAudio();
             }
         });
     }
@@ -276,6 +287,41 @@ public class SubmitActivity extends AppCompatActivity  {
 
     }
 
+    public void uploadAudio() {
+
+        // 创建文件上传客户端
+        FlaskClient service = ServiceGenerator.createService(FlaskClient.class);
+        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+        // use the FileUtils to get the actual file by uri
+        File file = new File(AUDIO_FILE_PATH);
+        // 根据文件创建请求体
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        // MultipartBody.Part 还可以上传文件名
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("text", file.getName(), requestFile);
+        // 在 multipart request中再添加一部分内容
+        String descriptionString = "Uploading Audio~";
+        RequestBody description =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), descriptionString);
+
+        // 最后执行请求
+        Call<ResponseBody> call = service.uploadAudio(description, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                Log.v("Upload", "success");
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Upload error:", t.getMessage());
+            }
+
+        });
+
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -288,6 +334,14 @@ public class SubmitActivity extends AppCompatActivity  {
                 //images.setText("已选择" + imagesList.size() + "张");
             } else {
                 Toast.makeText(this, "没有选择图片", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (requestCode == REQUEST_RECORD_AUDIO) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "Audio recorded successfully!", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Audio was not recorded", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -348,22 +402,21 @@ public class SubmitActivity extends AppCompatActivity  {
         return sb.toString().substring(0, sb.toString().length() - 1);
     }
 
-    //判断文件是否存在
-    public boolean fileIsExists(String strFile)
-    {
-        try
-        {
-            File f=new File(strFile);
-            if(!f.exists())
-            {
-                return false;
-            }
+    public void recordAudio(View v) {
+        AndroidAudioRecorder.with(this)
+                // Required
+                .setFilePath(AUDIO_FILE_PATH)
+                .setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+                .setRequestCode(REQUEST_RECORD_AUDIO)
 
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-        return true;
+                // Optional
+                .setSource(AudioSource.MIC)
+                .setChannel(AudioChannel.STEREO)
+                .setSampleRate(AudioSampleRate.HZ_48000)
+                .setAutoStart(false)
+                .setKeepDisplayOn(true)
+
+                // Start recording
+                .record();
     }
 }

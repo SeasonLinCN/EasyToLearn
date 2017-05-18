@@ -32,6 +32,12 @@ public interface FlaskClient {
             @Part("description") RequestBody description,
             @Part MultipartBody.Part files);
 
+    //上传音频
+    @Multipart
+    @POST("/uploadAudio")
+    Call<ResponseBody> uploadAudio(
+            @Part("description") RequestBody description,
+            @Part MultipartBody.Part files);
 
 
 }

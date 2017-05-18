@@ -74,6 +74,14 @@
                 android:background="@drawable/add"
                 android:scaleType="centerCrop" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:src="@drawable/record"
+                android:scaleType="centerCrop"
+                android:onClick="recordAudio"/>
+
             <com.unstoppable.submitbuttonview.SubmitButton
                 android:id="@+id/sbtn_loading"
                 android:layout_width="0dp"

@@ -23,6 +23,9 @@ repositories{
     flatDir{
         dirs 'libs' //就是你放aar的目录地址
     }
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -55,4 +58,6 @@ dependencies {
 
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
+
+    compile 'com.github.adrielcafe:AndroidAudioRecorder:0.3.0'
 }
