@@ -79,7 +79,7 @@ public class WorkFragment extends Fragment {
                 adapter = new WorkAdapter(workList);
                 recyclerView.setAdapter(adapter);
             }
-        }, 1000);    //延时1s执行
+        }, 2500);    //延时2s执行
             return view;
     }
 
@@ -91,7 +91,7 @@ public class WorkFragment extends Fragment {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
                             // 指定访问的服务器地址是电脑本机
-                            .url("http://192.168.123.76/get_data.json")
+                            .url("http://192.168.2.236/get_data.json")
                             .build();
                     Response response = client.newCall(request).execute();
                     responseData = response.body().string();

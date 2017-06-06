@@ -106,10 +106,8 @@ public class SignupActivity extends AppCompatActivity {
                         user.setMobile(phone);
                         user.setPassword(password);
                         user.save();
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
+
                         onSignupSuccess();
-                        // onSignupFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);

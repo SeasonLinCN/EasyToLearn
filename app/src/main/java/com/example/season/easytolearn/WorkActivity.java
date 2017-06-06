@@ -52,7 +52,7 @@ public class WorkActivity extends AppCompatActivity {
 
         /*加载作业名称、内容与图片*/
         collapsingToolbar.setTitle(workName);
-        Glide.with(this).load("http://192.168.123.76/" + workImageId).into(workImageView);
+        Glide.with(this).load("http://192.168.2.236/" + workImageId).into(workImageView);
         workContentText.setText(workContent);
 
         /*提交作业悬浮按钮*/

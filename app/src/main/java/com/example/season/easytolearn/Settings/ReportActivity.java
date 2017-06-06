@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.season.easytolearn.LoginActivity;
 import com.example.season.easytolearn.R;
 import com.example.season.easytolearn.UploadClient.FlaskClient;
 import com.example.season.easytolearn.UploadClient.ServiceGenerator;
@@ -94,8 +95,6 @@ public class ReportActivity extends AppCompatActivity{
 
         // 创建文件上传客户端
         FlaskClient service = ServiceGenerator.createService(FlaskClient.class);
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // use the FileUtils to get the actual file by uri
         File file = new File(getFilesDir().getPath()+"/report.txt");
         // 根据文件创建请求体
         RequestBody requestFile =

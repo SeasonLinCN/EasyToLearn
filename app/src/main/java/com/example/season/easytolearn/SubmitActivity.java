@@ -1,5 +1,6 @@
 package com.example.season.easytolearn;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,7 +25,6 @@ import android.widget.Toast;
 
 import com.example.season.easytolearn.UploadClient.FlaskClient;
 import com.example.season.easytolearn.UploadClient.GlideImageLoader;
-import com.example.season.easytolearn.UploadClient.ResponseBodySeason;
 import com.example.season.easytolearn.UploadClient.ServiceGenerator;
 import com.example.season.easytolearn.UploadClient.UploadResult;
 import com.lzy.imagepicker.ImagePicker;
@@ -41,6 +41,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +76,7 @@ public class SubmitActivity extends AppCompatActivity  {
     ArrayList<ImageItem> imagesList;
 
     String inputText = null;
+    String mySubmitWorkName = null;
 
     private static final int REQUEST_RECORD_AUDIO = 0;
     private static final String AUDIO_FILE_PATH =
@@ -85,8 +87,8 @@ public class SubmitActivity extends AppCompatActivity  {
         setContentView(R.layout.activiy_submit);
 
         Intent intent = getIntent();
-        submitWorkName = intent.getStringExtra(this.submitWorkName)+".doc";
-        Log.d("SubmitActivity", submitWorkName);
+        mySubmitWorkName = intent.getStringExtra(this.submitWorkName)+".txt";
+        Log.d("SubmitActivity", mySubmitWorkName);
 
         editText = (EditText) findViewById(R.id.input_work);
         inputText = load();
@@ -135,11 +137,15 @@ public class SubmitActivity extends AppCompatActivity  {
                 inputText = editText.getText().toString();
                 save(inputText);
                 Toast.makeText(SubmitActivity.this, "正在上传", Toast.LENGTH_SHORT).show();
-                uploadImages();
                 uploadFiles();
+                uploadImages();
+
                 uploadAudio();
             }
         });
+
+        Util.requestPermission(this, Manifest.permission.RECORD_AUDIO);
+        Util.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     @Override
@@ -157,7 +163,7 @@ public class SubmitActivity extends AppCompatActivity  {
         FileOutputStream out = null;
         BufferedWriter writer = null;
         try {
-            out = openFileOutput(submitWorkName, Context.MODE_PRIVATE);
+            out = openFileOutput(mySubmitWorkName, Context.MODE_PRIVATE);
             writer = new BufferedWriter(new OutputStreamWriter(out));
             writer.write(inputText);
         } catch (IOException e) {
@@ -178,7 +184,7 @@ public class SubmitActivity extends AppCompatActivity  {
         BufferedReader reader = null;
         StringBuilder content = new StringBuilder();
         try {
-            in = openFileInput(submitWorkName);
+            in = openFileInput(mySubmitWorkName);
             reader = new BufferedReader(new InputStreamReader(in));
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -204,7 +210,6 @@ public class SubmitActivity extends AppCompatActivity  {
 
     public void uploadImages() {
         if(imagesList.size() == 0) {
-            Toast.makeText(SubmitActivity.this, "不能不选择图片", Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -227,10 +232,6 @@ public class SubmitActivity extends AppCompatActivity  {
                 if (response.isSuccessful() && response.body().code == 1) {
                     sBtnLoading.doResult(true);
                     Toast.makeText(SubmitActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
-                    Log.i("orzangleli", "---------------------上传成功-----------------------");
-                    Log.i("orzangleli", "基础地址为：" + ServiceGenerator.API_BASE_URL);
-                    Log.i("orzangleli", "图片相对地址为：" + listToString(response.body().image_urls,','));
-                    Log.i("orzangleli", "---------------------END-----------------------");
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -255,9 +256,8 @@ public class SubmitActivity extends AppCompatActivity  {
 
         // 创建文件上传客户端
         FlaskClient service = ServiceGenerator.createService(FlaskClient.class);
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // use the FileUtils to get the actual file by uri
-        File file = new File(getFilesDir().getPath()+"/"+submitWorkName);
+        File file = new File(getFilesDir().getPath()+"/"+mySubmitWorkName);
+        Log.d("test", getFilesDir().getPath()+"/"+mySubmitWorkName);
         // 根据文件创建请求体
         RequestBody requestFile =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -276,6 +276,7 @@ public class SubmitActivity extends AppCompatActivity  {
             @Override
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
+                sBtnLoading.doResult(true);
                 Log.v("Upload", "success");
             }
             @Override

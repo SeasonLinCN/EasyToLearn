@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://192.168.123.76:5000/";
+    public static final String API_BASE_URL = "http://192.168.2.236:5000/";
     // set your desired log level
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

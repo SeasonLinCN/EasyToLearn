@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     String email;
     String name;
     String mobile;
-    String number;
+    public String number;
     String password;
 
     private SharedPreferences pref;

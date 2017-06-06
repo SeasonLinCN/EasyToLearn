@@ -73,7 +73,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         Work work = mWorkList.get(position);
         holder.workName.setText(work.getName());
         holder.workDeadLine.setText(work.getDeadLine());
-        Glide.with(mContext).load("http://192.168.123.76/" + work.getImageId()).into(holder.workImage);
+        Glide.with(mContext).load("http://192.168.2.236/" + work.getImageId()).into(holder.workImage);
     }
 
     @Override

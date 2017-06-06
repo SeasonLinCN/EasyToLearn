@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Intent intent = getIntent();
         Long id = intent.getLongExtra(ID,0);
         User user = DataSupport.find(User.class,id);
@@ -117,4 +116,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment, fragment);
         transaction.commit();
     }
+
 }

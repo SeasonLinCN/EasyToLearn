@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,10 +89,11 @@ public class MessageFragment extends Fragment {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
                             // 指定访问的服务器地址是电脑本机
-                            .url("http://192.168.123.76/get_message.json")
+                            .url("http://192.168.2.236:8080/mryang/message")
                             .build();
                     Response response = client.newCall(request).execute();
                     responseData = response.body().string();
+                    Log.d("a",responseData);
                     parseJSONWithGSON(responseData);
                 } catch (Exception e) {
                     e.printStackTrace();
